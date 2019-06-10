@@ -21,17 +21,20 @@ class CoinGame extends Component {
 
     handleClick() {
         let newCoinSide = this.flipCoin();
-        let total = this.state.totalFlips + 1;
-        let heads = this.state.headsIdx;
-        let tails = this.state.tailsIdx;
 
-        newCoinSide === "heads" ? heads++ : tails++;
+        this.setState(st => {
+            let newState = {
+                ...st,
+                coinSide: newCoinSide,
+                totalFlips: st.totalFlips + 1
+            };
+            if (newCoinSide === "heads") {
+                newState.headsIdx += 1;
+            } else {
+                newState.tailsIdx += 1;
+            }
 
-        this.setState({
-            coinSide: newCoinSide,
-            totalFlips: total,
-            headsIdx: heads,
-            tailsIdx: tails
+            return newState;
         });
     }
 
